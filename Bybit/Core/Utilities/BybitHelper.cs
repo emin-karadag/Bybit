@@ -1,4 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using Bybit.Entity.Models.Public;
+using System.Globalization;
+using System.Net.Http.Json;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
@@ -9,54 +12,60 @@ namespace Bybit.Core.Utilities
         const string VERSION = "v5";
         const string TESTNET_URL = "https://api-testnet.bybit.com";
         const string BASE_URL = "https://api.bybit.com/";
-        const string BASE_URL_2 = "https://api.bytick.com";
+        const string BASE_URL_2 = "https://api.bytick.com/";
 
-        internal static string GetRequestUrl(string url)
+        private static readonly HttpClient _httpClient = new();
+
+        internal static string GetRequestUrl(string url, string version = "")
         {
-            return $"{BASE_URL}{VERSION}{url}";
+            version = string.IsNullOrEmpty(version) ? VERSION : version;
+            return $"{BASE_URL}{version}{url}";
         }
 
-        internal static string CreateQueryString(Dictionary<string, string> parameters)
-        {
-
-            return $"?{string.Join("&", parameters.Where(p => !string.IsNullOrEmpty(p.Value))
-                .Select(p => $"{p.Key}={HttpUtility.UrlEncode(p.Value)}"))}";
-
-
-            //var properties = from p in parameters
-            //                 where !string.IsNullOrEmpty(p.Value)
-            //                 select $"{p.Key}={HttpUtility.UrlEncode(p.Value)}";
-
-            //return "?" + string.Join("&", properties.ToArray());
-        }
-
-
-        public static Dictionary<string, string> BuildRequest(string? apiSecret = null, Dictionary<string, string>? parameters = null)
+        internal static string CreateQueryString(Dictionary<string, string>? parameters)
         {
             parameters ??= new Dictionary<string, string>();
-
-            //if (baseUrl)
-            //    parameters.Add("timestamp", GetTimestamp().ToString(CultureInfo.InvariantCulture));
-
-            if (!string.IsNullOrEmpty(apiSecret))
-                parameters.Add("signature", CreateHmac(apiSecret, new FormUrlEncodedContent(parameters)));
-
-            return parameters;
+            return $"?{string.Join("&", parameters.Where(p => !string.IsNullOrEmpty(p.Value))
+                .Select(p => $"{p.Key}={HttpUtility.UrlEncode(p.Value)}"))}";
         }
 
-
-        public static string CreateHmac(string secretKey, FormUrlEncodedContent args)
+        public static string CreateHmac(string data, string secretKey)
         {
-            using HMACSHA256 hash = new(Encoding.ASCII.GetBytes(secretKey));
-            byte[] bytes = hash.ComputeHash(args.ReadAsByteArrayAsync().Result);
-            return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            using var sha256_HMAC = new HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
+            return BitConverter.ToString(sha256_HMAC.ComputeHash(Encoding.UTF8.GetBytes(data))).Replace("-", string.Empty).ToLower();
         }
 
         public static long GetTimestamp(DateTime? dateTime = null)
         {
-            var targetDateTime = dateTime ?? DateTime.UtcNow;
+            //return new DateTimeOffset(dateTime ?? DateTime.UtcNow).ToUnixTimeMilliseconds();
             var offset = new TimeSpan().TotalMilliseconds;
+            var targetDateTime = dateTime ?? DateTime.UtcNow;
             return (long)(targetDateTime.AddMilliseconds(offset) - new DateTime(1970, 1, 1)).TotalMilliseconds;
+        }
+
+        public static async Task<string> GetTimestampFromServer(CancellationToken ct = default)
+        {
+            var serverTime = await GetServerTimeAsync(ct);
+            var serverDate = DateTimeOffset.FromUnixTimeSeconds(serverTime);
+
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var timestamp = (long)Math.Round((serverDate.AddMilliseconds(-1) - epoch).TotalMilliseconds);
+            return timestamp.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public static async Task<long> GetServerTimeAsync(CancellationToken ct = default)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("https://api.bybit.com//v3/public/time", ct);
+                response.EnsureSuccessStatusCode();
+                var serverTimeResponse = await response.Content.ReadFromJsonAsync<ServerTimeModel>(cancellationToken: ct);
+                return serverTimeResponse?.Result?.TimeSecond ?? 0;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }
