@@ -3,6 +3,7 @@ using Bybit.Core.Results.Abstract;
 using Bybit.Core.Results.Concrete;
 using Bybit.Core.Utilities;
 using Bybit.Entity.Models.Public;
+using Bybit.Entity.Models.Trade;
 using System.Text.Json;
 
 namespace Bybit.Business.Concrete
@@ -15,14 +16,10 @@ namespace Bybit.Business.Concrete
         {
             try
             {
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/time", version: "v3", ct: ct);
-                var data = JsonSerializer.Deserialize<ServerTimeModel>(result);
-
-                if (data is not null)
-                    return data.RetMsg == "OK"
-                        ? new SuccessDataResult<ServerTimeData>(data.Result, data.RetMsg, data.RetCode)
-                        : new ErrorDataResult<ServerTimeData>(data.RetMsg, data.RetCode);
-                return new SuccessDataResult<ServerTimeData>();
+                var result = await RequestHelper.SendRequestAsync<ServerTimeModel>($"{_prefix}/time", version: "v3", ct: ct);
+                return result.Success && result.Data?.RetMsg == "OK"
+                    ? new SuccessDataResult<ServerTimeData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
+                    : new ErrorDataResult<ServerTimeData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

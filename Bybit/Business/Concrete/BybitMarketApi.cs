@@ -4,6 +4,7 @@ using Bybit.Core.Results.Concrete;
 using Bybit.Core.Utilities;
 using Bybit.Entity.Dtos.Market;
 using Bybit.Entity.Models.Market;
+using Bybit.Entity.Models.Trade;
 using System.Text.Json;
 
 namespace Bybit.Business.Concrete
@@ -50,14 +51,11 @@ namespace Bybit.Business.Concrete
                     parameters["end"] = BybitHelper.GetTimestamp(model.EndDate.Value).ToString();
                 }
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}{url}", parameters, ct: ct);
+                var result = await RequestHelper.SendRequestAsync<KLineModel>($"{_prefix}{url}", parameters, ct: ct);
 
-                var data = JsonSerializer.Deserialize<KLineModel>(result);
-                if (data is not null)
-                    return data.RetMsg == "OK"
-                        ? new SuccessDataResult<KLineData>(data.Result, data.RetMsg, data.RetCode)
-                        : new ErrorDataResult<KLineData>(data.RetMsg, data.RetCode);
-                return new SuccessDataResult<KLineData>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                    ? new SuccessDataResult<KLineData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
+                    : new ErrorDataResult<KLineData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -80,15 +78,11 @@ namespace Bybit.Business.Concrete
                 if (model.Cursor)
                     parameters["cursor"] = "true";
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/instruments-info", parameters, ct: ct);
+                var result = await RequestHelper.SendRequestAsync<InstrumentsInfoModel>($"{_prefix}/instruments-info", parameters, ct: ct);
 
-                var data = JsonSerializer.Deserialize<InstrumentsInfoModel>(result);
-
-                return data is not null
-                    ? data.RetMsg == "OK" || data.RetMsg == "success"
-                       ? new SuccessDataResult<List<InstrumentsInfoDataList>>(data.Result?.InstrumentsInfoDataList, data.RetMsg, data.RetCode)
-                       : new ErrorDataResult<List<InstrumentsInfoDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<InstrumentsInfoDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK" || result.Data?.RetMsg == "success"
+                    ? new SuccessDataResult<List<InstrumentsInfoDataList>>(result.Data.Result?.InstrumentsInfoDataList, result.Data.RetMsg, result.Data.RetCode)
+                    : new ErrorDataResult<List<InstrumentsInfoDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -107,14 +101,11 @@ namespace Bybit.Business.Concrete
                     ["limit"] = model.Limit.ToString()
                 };
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/orderbook", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<OrderBookModel>(result);
+                var result = await RequestHelper.SendRequestAsync<OrderBookModel>($"{_prefix}/orderbook", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                        ? new SuccessDataResult<OrderBookData>(data.Result, data.RetMsg, data.RetCode)
-                        : new ErrorDataResult<OrderBookData>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<OrderBookData>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                    ? new SuccessDataResult<OrderBookData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
+                    : new ErrorDataResult<OrderBookData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -136,14 +127,11 @@ namespace Bybit.Business.Concrete
                     ["expDate"] = model.ExpDate,
                 };
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/tickers", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<TickerModel>(result);
+                var result = await RequestHelper.SendRequestAsync<TickerModel>($"{_prefix}/tickers", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK" || data.RetMsg == "SUCCESS"
-                     ? new SuccessDataResult<List<TickerDataList>>(data.Result?.TickerDataList, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<TickerDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<TickerDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK" || result.Data?.RetMsg == "SUCCESS"
+                   ? new SuccessDataResult<List<TickerDataList>>(result.Data.Result?.TickerDataList, result.Data.RetMsg, result.Data.RetCode)
+                   : new ErrorDataResult<List<TickerDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -169,14 +157,11 @@ namespace Bybit.Business.Concrete
                 if (model.EndDate.HasValue)
                     parameters["endTime"] = BybitHelper.GetTimestamp(model.EndDate.Value).ToString();
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/funding/history", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<FundingRateHistoryModel>(result);
+                var result = await RequestHelper.SendRequestAsync<FundingRateHistoryModel>($"{_prefix}/funding/history", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                     ? new SuccessDataResult<List<FundingRateHistoryDataList>>(data.Result?.FundingRateHistoryDataList, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<FundingRateHistoryDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<FundingRateHistoryDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                   ? new SuccessDataResult<List<FundingRateHistoryDataList>>(result.Data.Result?.FundingRateHistoryDataList, result.Data.RetMsg, result.Data.RetCode)
+                   : new ErrorDataResult<List<FundingRateHistoryDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -197,14 +182,11 @@ namespace Bybit.Business.Concrete
                     ["optionType"] = model.OptionType.ToString()
                 };
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/recent-trade", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<PublicTradingHistoryModel>(result);
+                var result = await RequestHelper.SendRequestAsync<PublicTradingHistoryModel>($"{_prefix}/recent-trade", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                     ? new SuccessDataResult<List<PublicTradingHistoryDataList>>(data.Result?.PublicTradingHistoryDataList, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<PublicTradingHistoryDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<PublicTradingHistoryDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                   ? new SuccessDataResult<List<PublicTradingHistoryDataList>>(result.Data.Result?.PublicTradingHistoryDataList, result.Data.RetMsg, result.Data.RetCode)
+                   : new ErrorDataResult<List<PublicTradingHistoryDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -231,14 +213,11 @@ namespace Bybit.Business.Concrete
                 if (model.EndDate.HasValue)
                     parameters["endTime"] = BybitHelper.GetTimestamp(model.EndDate.Value).ToString();
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/open-interest", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<OpenInterestModel>(result);
+                var result = await RequestHelper.SendRequestAsync<OpenInterestModel>($"{_prefix}/open-interest", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                     ? new SuccessDataResult<List<OpenInterestDataList>>(data.Result?.OpenInterestDataList, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<OpenInterestDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<OpenInterestDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                  ? new SuccessDataResult<List<OpenInterestDataList>>(result.Data.Result?.OpenInterestDataList, result.Data.RetMsg, result.Data.RetCode)
+                  : new ErrorDataResult<List<OpenInterestDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -267,14 +246,11 @@ namespace Bybit.Business.Concrete
                 if (model.EndDate.HasValue)
                     parameters["endTime"] = BybitHelper.GetTimestamp(model.EndDate.Value).ToString();
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/historical-volatility", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<HistoricalVolatilityModel>(result);
+                var result = await RequestHelper.SendRequestAsync<HistoricalVolatilityModel>($"{_prefix}/historical-volatility", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "SUCCESS"
-                     ? new SuccessDataResult<List<HistoricalVolatilityData>>(data.Result, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<HistoricalVolatilityData>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<HistoricalVolatilityData>>();
+                return result.Success && result.Data?.RetMsg == "SUCCESS"
+                  ? new SuccessDataResult<List<HistoricalVolatilityData>>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
+                  : new ErrorDataResult<List<HistoricalVolatilityData>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -293,14 +269,11 @@ namespace Bybit.Business.Concrete
                     ["coin"] = model.Coin
                 };
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/insurance", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<InsuranceModel>(result);
+                var result = await RequestHelper.SendRequestAsync<InsuranceModel>($"{_prefix}/insurance", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                     ? new SuccessDataResult<List<InsuranceDataList>>(data.Result?.InsuranceDataList, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<InsuranceDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<InsuranceDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                  ? new SuccessDataResult<List<InsuranceDataList>>(result.Data.Result?.InsuranceDataList, result.Data.RetMsg, result.Data.RetCode)
+                  : new ErrorDataResult<List<InsuranceDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -318,14 +291,11 @@ namespace Bybit.Business.Concrete
                     ["symbol"] = model.Symbol
                 };
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/risk-limit", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<RiskLimitModel>(result);
+                var result = await RequestHelper.SendRequestAsync<RiskLimitModel>($"{_prefix}/risk-limit", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                        ? new SuccessDataResult<List<RiskLimitDataList>>(data.Result?.RiskLimitDataList, data.RetMsg, data.RetCode)
-                        : new ErrorDataResult<List<RiskLimitDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<RiskLimitDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                  ? new SuccessDataResult<List<RiskLimitDataList>>(result.Data.Result?.RiskLimitDataList, result.Data.RetMsg, result.Data.RetCode)
+                  : new ErrorDataResult<List<RiskLimitDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -346,14 +316,11 @@ namespace Bybit.Business.Concrete
                     ["cursor"] = model.Cursor
                 };
 
-                var result = await RequestHelper.SendRequestAsync($"{_prefix}/delivery-price", parameters, ct: ct);
-                var data = JsonSerializer.Deserialize<DeliveryPriceModel>(result);
+                var result = await RequestHelper.SendRequestAsync<DeliveryPriceModel>($"{_prefix}/delivery-price", parameters, ct: ct);
 
-                return data is not null
-                    ? data.RetMsg == "OK"
-                     ? new SuccessDataResult<List<DeliveryPriceDataList>>(data.Result?.DeliveryPriceDataList, data.RetMsg, data.RetCode)
-                     : new ErrorDataResult<List<DeliveryPriceDataList>>(data.RetMsg, data.RetCode)
-                    : new SuccessDataResult<List<DeliveryPriceDataList>>();
+                return result.Success && result.Data?.RetMsg == "OK"
+                 ? new SuccessDataResult<List<DeliveryPriceDataList>>(result.Data.Result?.DeliveryPriceDataList, result.Data.RetMsg, result.Data.RetCode)
+                 : new ErrorDataResult<List<DeliveryPriceDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

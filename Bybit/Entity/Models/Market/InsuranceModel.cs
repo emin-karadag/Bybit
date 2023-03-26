@@ -1,6 +1,5 @@
 ﻿using Bybit.Core.Converters;
 using Bybit.Core.Models;
-using Bybit.Models.Common;
 using System.Text.Json.Serialization;
 
 namespace Bybit.Entity.Models.Market
@@ -9,9 +8,6 @@ namespace Bybit.Entity.Models.Market
     {
         [JsonPropertyName("result")]
         public InsuranceData? Result { get; set; }
-
-        [JsonPropertyName("retExtInfo")]
-        public RetExtInfo? RetExtInfo { get; set; }
     }
 
     public partial class InsuranceData

@@ -1,6 +1,5 @@
 ﻿using Bybit.Core.Converters;
 using Bybit.Core.Models;
-using Bybit.Models.Common;
 using Bybit.Models.Enums;
 using System.Text.Json.Serialization;
 
@@ -15,9 +14,6 @@ namespace Bybit.Entity.Models.Market
 
         [JsonPropertyName("result")]
         public List<HistoricalVolatilityData>? Result { get; set; }
-
-        [JsonPropertyName("retExtInfo")]
-        public RetExtInfo? RetExtInfo { get; set; }
     }
 
     public partial class HistoricalVolatilityData
