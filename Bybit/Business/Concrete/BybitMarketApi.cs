@@ -4,8 +4,6 @@ using Bybit.Core.Results.Concrete;
 using Bybit.Core.Utilities;
 using Bybit.Entity.Dtos.Market;
 using Bybit.Entity.Models.Market;
-using Bybit.Entity.Models.Trade;
-using System.Text.Json;
 
 namespace Bybit.Business.Concrete
 {

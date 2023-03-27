@@ -5,6 +5,12 @@ namespace Bybit.Models.Enums
     public enum AccountTypeEnum
     {
         /// <summary>
+        /// UMA or UTA
+        /// </summary>
+        [Display(Name = "UNIFIED")]
+        UNIFIED,
+
+        /// <summary>
         /// Derivatives Account
         /// </summary>
         [Display(Name = "CONTRACT")]
@@ -27,12 +33,6 @@ namespace Bybit.Models.Enums
         /// </summary>
         [Display(Name = "OPTION")]
         OPTION,
-
-        /// <summary>
-        /// UMA or UTA
-        /// </summary>
-        [Display(Name = "UNIFIED")]
-        UNIFIED,
 
         /// <summary>
         /// Funding Account

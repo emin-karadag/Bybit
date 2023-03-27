@@ -3,8 +3,6 @@ using Bybit.Core.Results.Abstract;
 using Bybit.Core.Results.Concrete;
 using Bybit.Core.Utilities;
 using Bybit.Entity.Models.Public;
-using Bybit.Entity.Models.Trade;
-using System.Text.Json;
 
 namespace Bybit.Business.Concrete
 {
