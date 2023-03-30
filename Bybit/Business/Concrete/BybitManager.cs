@@ -1,4 +1,5 @@
 ﻿using Bybit.Business.Abstract;
+using System.ComponentModel;
 
 namespace Bybit.Business.Concrete
 {
@@ -11,6 +12,7 @@ namespace Bybit.Business.Concrete
             Trade = new BybitTradeApi();
             Account = new BybitAccountApi();
             Asset = new BybitAssetApi();
+            User = new BybitUserApi();
         }
 
         public IBybitPublicApi Public { get; set; }
@@ -18,5 +20,6 @@ namespace Bybit.Business.Concrete
         public IBybitTradeApi Trade { get; set; }
         public IBybitAccountApi Account { get; set; }
         public IBybitAssetApi Asset { get; set; }
+        public IBybitUserApi User { get; set; }
     }
 }

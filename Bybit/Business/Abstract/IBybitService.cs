@@ -7,5 +7,6 @@
         public IBybitTradeApi Trade { get; set; }
         public IBybitAccountApi Account { get; set; }
         public IBybitAssetApi Asset { get; set; }
+        public IBybitUserApi User { get; set; }
     }
 }
