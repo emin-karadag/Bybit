@@ -3,16 +3,8 @@ using Bybit.Core.Results.Abstract;
 using Bybit.Core.Results.Concrete;
 using Bybit.Core.Utilities;
 using Bybit.Entity;
-using Bybit.Entity.Dtos.Account;
 using Bybit.Entity.Dtos.Asset;
-using Bybit.Entity.Models.Account;
 using Bybit.Entity.Models.Asset;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Bybit.Business.Concrete
 {
@@ -78,7 +70,7 @@ namespace Bybit.Business.Concrete
                     ["withBonus"] = model.WithBonus ? "1" : "0",
                     ["withTransferSafeAmount"] = model.WithTransferSafeAmount ? "1" : "0",
                 };
-                
+
                 var result = await RequestHelper.SendRequestWithAuthAsync<SingleCoinBalanceModel>(HttpMethod.Get, $"{_prefix}/transfer/query-account-coin-balance", options, parameters, ct: ct);
                 return result.Success && result.Data?.RetMsg == "success"
                     ? new SuccessDataResult<SingleCoinBalanceData>(result.Data?.Result, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
@@ -100,7 +92,7 @@ namespace Bybit.Business.Concrete
                 {
                     ["coin"] = model.Coin,
                 };
-                
+
                 var result = await RequestHelper.SendRequestWithAuthAsync<CoinInfoModel>(HttpMethod.Get, $"{_prefix}/coin/query-info", options, parameters, ct: ct);
                 return result.Data?.RetMsg == ""
                     ? new SuccessDataResult<List<CoinInfoDataRow>>(result.Data?.Result?.Rows, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)

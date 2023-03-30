@@ -1,5 +1,4 @@
 ﻿using Bybit.Business.Abstract;
-using System.ComponentModel;
 
 namespace Bybit.Business.Concrete
 {
