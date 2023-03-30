@@ -7,9 +7,11 @@ namespace Bybit.Core.Converters
     {
         public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return reader.TokenType == JsonTokenType.String && int.TryParse(reader.GetString(), out int result)
-                ? result
-                : reader.GetInt32();
+            if (reader.TokenType != JsonTokenType.String)
+                return 0;
+
+            _ = int.TryParse(reader.GetString(), out int result);
+            return result;
         }
 
         public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)

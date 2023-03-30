@@ -10,11 +10,13 @@ namespace Bybit.Business.Concrete
             Market = new BybitMarketApi();
             Trade = new BybitTradeApi();
             Account = new BybitAccountApi();
+            Asset = new BybitAssetApi();
         }
 
         public IBybitPublicApi Public { get; set; }
         public IBybitMarketApi Market { get; set; }
         public IBybitTradeApi Trade { get; set; }
         public IBybitAccountApi Account { get; set; }
+        public IBybitAssetApi Asset { get; set; }
     }
 }
