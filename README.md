@@ -67,7 +67,7 @@ using Bybit.Business.Abstract;
 private readonly IBybitService _bybitService;
 public Test(IBybitService bybitService)
 {
-_bybitService = bybitService;
+   _bybitService = bybitService;
 }
 ```
 
@@ -116,7 +116,7 @@ using Bybit.Business.Abstract;
 private readonly IBybitService _bybitService;
 public Test(IBybitService bybitService)
 {
-_bybitService = bybitService;
+   _bybitService = bybitService;
 }
 ```
 
