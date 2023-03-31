@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bybit", "Bybit\Bybit.csproj", "{4AC554CF-9C2E-4BDA-85A1-92ED25380B63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BybitApi", "BybitApi\BybitApi.csproj", "{4AC554CF-9C2E-4BDA-85A1-92ED25380B63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bybit.Test", "Bybit.Test\Bybit.Test.csproj", "{42B24F8E-8B15-4DAC-A2FA-BE8EEA9A088D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bybit.Test", "Bybit.Test\Bybit.Test.csproj", "{42B24F8E-8B15-4DAC-A2FA-BE8EEA9A088D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
