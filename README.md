@@ -64,11 +64,11 @@ services.AddSingleton<IBybitService, BybitManager>();
 ```csharp
 using Bybit.Business.Abstract;
 
- private readonly IBybitService _bybitService;
- public Test(IBybitService bybitService)
- {
-    _bybitService = bybitService;
- }
+private readonly IBybitService _bybitService;
+public Test(IBybitService bybitService)
+{
+_bybitService = bybitService;
+}
 ```
 
 ------------
@@ -113,11 +113,11 @@ services.AddSingleton<IBybitService, BybitManager>();
 ```csharp
 using Bybit.Business.Abstract;
 
- private readonly IBybitService _bybitService;
- public Test(IBybitService bybitService)
- {
-    _bybitService = bybitService;
- }
+private readonly IBybitService _bybitService;
+public Test(IBybitService bybitService)
+{
+_bybitService = bybitService;
+}
 ```
 
 **Options tanımlama:**
