@@ -124,8 +124,8 @@ using Bybit.Business.Abstract;
 ```csharp
 var options = new BybitOptions
 {
-	ApiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
-	ApiSecret = "xxxxxxxxxxxxxxxxxxxxxxxx"
+   ApiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   ApiSecret = "xxxxxxxxxxxxxxxxxxxxxxxx"
 };
 ```
 
