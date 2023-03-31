@@ -53,7 +53,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<KLineData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<KLineData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<KLineData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK" || result.Data?.RetMsg == "success"
                     ? new SuccessDataResult<List<InstrumentsInfoDataList>>(result.Data.Result?.InstrumentsInfoDataList, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<List<InstrumentsInfoDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<List<InstrumentsInfoDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<OrderBookData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<OrderBookData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<OrderBookData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK" || result.Data?.RetMsg == "SUCCESS"
                    ? new SuccessDataResult<List<TickerDataList>>(result.Data.Result?.TickerDataList, result.Data.RetMsg, result.Data.RetCode)
-                   : new ErrorDataResult<List<TickerDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                   : new ErrorDataResult<List<TickerDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -159,7 +159,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                    ? new SuccessDataResult<List<FundingRateHistoryDataList>>(result.Data.Result?.FundingRateHistoryDataList, result.Data.RetMsg, result.Data.RetCode)
-                   : new ErrorDataResult<List<FundingRateHistoryDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                   : new ErrorDataResult<List<FundingRateHistoryDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -184,7 +184,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                    ? new SuccessDataResult<List<PublicTradingHistoryDataList>>(result.Data.Result?.PublicTradingHistoryDataList, result.Data.RetMsg, result.Data.RetCode)
-                   : new ErrorDataResult<List<PublicTradingHistoryDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                   : new ErrorDataResult<List<PublicTradingHistoryDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -215,7 +215,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                   ? new SuccessDataResult<List<OpenInterestDataList>>(result.Data.Result?.OpenInterestDataList, result.Data.RetMsg, result.Data.RetCode)
-                  : new ErrorDataResult<List<OpenInterestDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                  : new ErrorDataResult<List<OpenInterestDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -248,7 +248,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "SUCCESS"
                   ? new SuccessDataResult<List<HistoricalVolatilityData>>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                  : new ErrorDataResult<List<HistoricalVolatilityData>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                  : new ErrorDataResult<List<HistoricalVolatilityData>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -271,7 +271,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                   ? new SuccessDataResult<List<InsuranceDataList>>(result.Data.Result?.InsuranceDataList, result.Data.RetMsg, result.Data.RetCode)
-                  : new ErrorDataResult<List<InsuranceDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                  : new ErrorDataResult<List<InsuranceDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -293,7 +293,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                   ? new SuccessDataResult<List<RiskLimitDataList>>(result.Data.Result?.RiskLimitDataList, result.Data.RetMsg, result.Data.RetCode)
-                  : new ErrorDataResult<List<RiskLimitDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                  : new ErrorDataResult<List<RiskLimitDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -318,7 +318,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                  ? new SuccessDataResult<List<DeliveryPriceDataList>>(result.Data.Result?.DeliveryPriceDataList, result.Data.RetMsg, result.Data.RetCode)
-                 : new ErrorDataResult<List<DeliveryPriceDataList>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                 : new ErrorDataResult<List<DeliveryPriceDataList>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

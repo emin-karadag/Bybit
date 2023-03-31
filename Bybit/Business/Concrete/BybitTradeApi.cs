@@ -45,7 +45,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<PlaceOrderModel>(HttpMethod.Post, $"{_prefix}/create", options, parameters, ct: ct);
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<PlaceOrderData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<PlaceOrderData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<PlaceOrderData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                    ? new SuccessDataResult<AmendOrderData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                   : new ErrorDataResult<AmendOrderData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                   : new ErrorDataResult<AmendOrderData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                   ? new SuccessDataResult<CancelOrderData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                  : new ErrorDataResult<CancelOrderData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                  : new ErrorDataResult<CancelOrderData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                   ? new SuccessDataResult<OpenOrdersData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                  : new ErrorDataResult<OpenOrdersData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                  : new ErrorDataResult<OpenOrdersData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -162,7 +162,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                  ? new SuccessDataResult<CancelAllOrdersData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                 : new ErrorDataResult<CancelAllOrdersData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                 : new ErrorDataResult<CancelAllOrdersData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -193,7 +193,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<OrderHistoryData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<OrderHistoryData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<OrderHistoryData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -216,7 +216,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<BorrowQuotaData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<BorrowQuotaData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<BorrowQuotaData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

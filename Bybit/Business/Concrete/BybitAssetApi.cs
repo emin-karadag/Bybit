@@ -25,7 +25,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<AssetInfoModel>(HttpMethod.Get, $"{_prefix}/transfer/query-asset-info", options, parameters, ct: ct);
                 return result.Success && result.Data?.RetMsg == "success"
                     ? new SuccessDataResult<SpotData>(result.Data?.Result?.SpotData, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<SpotData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<SpotData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<AllCoinsBalanceModel>(HttpMethod.Get, $"{_prefix}/transfer/query-account-coins-balance", options, parameters, ct: ct);
                 return result.Success && result.Data?.RetMsg == "success"
                     ? new SuccessDataResult<AllCoinsBalanceData>(result.Data?.Result, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<AllCoinsBalanceData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<AllCoinsBalanceData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<SingleCoinBalanceModel>(HttpMethod.Get, $"{_prefix}/transfer/query-account-coin-balance", options, parameters, ct: ct);
                 return result.Success && result.Data?.RetMsg == "success"
                     ? new SuccessDataResult<SingleCoinBalanceData>(result.Data?.Result, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<SingleCoinBalanceData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<SingleCoinBalanceData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<CoinInfoModel>(HttpMethod.Get, $"{_prefix}/coin/query-info", options, parameters, ct: ct);
                 return result.Data?.RetMsg == ""
                     ? new SuccessDataResult<List<CoinInfoDataRow>>(result.Data?.Result?.Rows, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<List<CoinInfoDataRow>>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<List<CoinInfoDataRow>>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

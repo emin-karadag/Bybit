@@ -17,7 +17,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestAsync<ServerTimeModel>($"{_prefix}/time", version: "v3", ct: ct);
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<ServerTimeData>(result.Data.Result, result.Data.RetMsg, result.Data.RetCode)
-                    : new ErrorDataResult<ServerTimeData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<ServerTimeData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

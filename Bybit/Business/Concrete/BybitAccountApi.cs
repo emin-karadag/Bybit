@@ -27,7 +27,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<WalletBalanceModel>(HttpMethod.Get, $"{_prefix}/wallet-balance", options, parameters, ct: ct);
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<List<WalletBalanceDataList>?>(result.Data?.Result?.WalletBalanceDataList, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<List<WalletBalanceDataList>?>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<List<WalletBalanceDataList>?>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<List<FeeRateDataList>?>(result.Data?.Result?.FeeRateDataList, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<List<FeeRateDataList>?>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<List<FeeRateDataList>?>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace Bybit.Business.Concrete
 
                 return result.Success && result.Data?.RetMsg == "OK"
                     ? new SuccessDataResult<AccountInfoData>(result.Data?.Result, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<AccountInfoData>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<AccountInfoData>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {

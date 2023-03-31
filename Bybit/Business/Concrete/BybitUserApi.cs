@@ -18,7 +18,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<SubUIDListModel>(HttpMethod.Get, $"{_prefix}/query-sub-members", options, ct: ct);
                 return result.Data?.RetMsg == ""
                     ? new SuccessDataResult<List<SubMember>?>(result.Data?.Result?.SubMembers, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<List<SubMember>?>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<List<SubMember>?>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
@@ -33,7 +33,7 @@ namespace Bybit.Business.Concrete
                 var result = await RequestHelper.SendRequestWithAuthAsync<ApiKeyInfoModel>(HttpMethod.Get, $"{_prefix}/query-api", options, ct: ct);
                 return result.Data?.RetMsg == ""
                     ? new SuccessDataResult<ApiKeyInfoData?>(result.Data?.Result, result.Data?.RetMsg ?? "", result.Data?.RetCode ?? 0)
-                    : new ErrorDataResult<ApiKeyInfoData?>(result.Data?.RetMsg, result.Data?.RetCode ?? 0);
+                    : new ErrorDataResult<ApiKeyInfoData?>(result.Data?.RetMsg ?? result.Message, result.Data?.RetCode ?? 0);
             }
             catch (Exception ex)
             {
