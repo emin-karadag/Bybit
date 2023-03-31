@@ -76,7 +76,7 @@ using Bybit.Business.Abstract;
 
 **Bybit sunucuyu zaman bilgisini alın:**
 ```csharp
-var serverTime = await _bybitService.Public.GetServerTimeAsync(stoppingToken).ConfigureAwait(false);
+var serverTime = await _bybitService.Public.GetServerTimeAsync(stoppingToken);
 if (!serverTime.Success)
 {
     Console.WriteLine(serverTime.Message);
@@ -92,7 +92,7 @@ var model = new InstrumentsInfoDto
 {
     Category = Models.Enums.CategoryEnum.SPOT,
 };
-var instrumentsResult = await _bybitService.Market.GetInstrumentsInfoAsync(model, stoppingToken).ConfigureAwait(false);
+var instrumentsResult = await _bybitService.Market.GetInstrumentsInfoAsync(model, stoppingToken);
 var instrumentsInfo = instrumentsResult.Data;
 ```
 
