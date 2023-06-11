@@ -37,9 +37,9 @@ namespace Bybit.Business.Concrete
                     ["stopLoss"] = model.StopLoss,
                     ["tpTriggerBy"] = model.TpTriggerBy.GetDisplayName(),
                     ["slTriggerBy"] = model.SlTriggerBy.GetDisplayName(),
-                    ["reduceOnly"] = model.ReduceOnly.ToString(),
-                    ["closeOnTrigger"] = model.CloseOnTrigger.ToString(),
-                    ["mmp"] = model.Mmp.ToString(),
+                    ["reduceOnly"] = string.IsNullOrEmpty(model.TakeProfit) && string.IsNullOrEmpty(model.StopLoss) ? model.ReduceOnly.ToString() : "false",
+                    ["closeOnTrigger"] = string.IsNullOrEmpty(model.TakeProfit) && string.IsNullOrEmpty(model.StopLoss) ? model.CloseOnTrigger.ToString() : "false",
+                    ["mmp"] = string.IsNullOrEmpty(model.Mmp) ? "false" : model.Mmp.ToString(),
                 };
 
                 var result = await RequestHelper.SendRequestWithAuthAsync<PlaceOrderModel>(HttpMethod.Post, $"{_prefix}/create", options, parameters, ct: ct);

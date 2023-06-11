@@ -47,7 +47,7 @@ namespace Bybit.Entity.Dtos.Trade
         /// - 1: triggered when market price rises to triggerPrice
         /// - 2: triggered when market price falls to triggerPrice
         /// </summary>
-        public short TriggerDirection { get; set; }
+        public int TriggerDirection { get; set; }
 
         /// <summary>
         /// Valid for spot only. Order,tpslOrder. If not passed, Order by default

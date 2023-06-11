@@ -52,7 +52,7 @@ namespace Bybit.Business.Abstract
         /// <param name="model">InstrumentsInfoDto</param>
         /// <param name="ct">CancellationToken</param>
         /// <returns></returns>
-        Task<IDataResult<List<InstrumentsInfoDataList>>> GetInstrumentsInfoAsync(InstrumentsInfoDto model, CancellationToken ct = default);
+        Task<IDataResult<List<InstrumentsInfoDataList>>> GetInstrumentsInfoAsync(InstrumentsInfoDto? model = null, CancellationToken ct = default);
 
         /// <summary>
         /// Query orderbook data

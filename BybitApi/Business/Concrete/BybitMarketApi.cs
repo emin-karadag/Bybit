@@ -61,10 +61,12 @@ namespace Bybit.Business.Concrete
             }
         }
 
-        public async Task<IDataResult<List<InstrumentsInfoDataList>>> GetInstrumentsInfoAsync(InstrumentsInfoDto model, CancellationToken ct = default)
+        public async Task<IDataResult<List<InstrumentsInfoDataList>>> GetInstrumentsInfoAsync(InstrumentsInfoDto? model = null, CancellationToken ct = default)
         {
             try
             {
+                model ??= new InstrumentsInfoDto();
+
                 var parameters = new Dictionary<string, string>
                 {
                     ["symbol"] = model.Symbol,
