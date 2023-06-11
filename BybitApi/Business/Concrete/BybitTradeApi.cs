@@ -37,8 +37,8 @@ namespace Bybit.Business.Concrete
                     ["stopLoss"] = model.StopLoss,
                     ["tpTriggerBy"] = model.TpTriggerBy.GetDisplayName(),
                     ["slTriggerBy"] = model.SlTriggerBy.GetDisplayName(),
-                    ["reduceOnly"] = string.IsNullOrEmpty(model.TakeProfit) && string.IsNullOrEmpty(model.StopLoss) ? model.ReduceOnly.ToString() : "false",
-                    ["closeOnTrigger"] = string.IsNullOrEmpty(model.TakeProfit) && string.IsNullOrEmpty(model.StopLoss) ? model.CloseOnTrigger.ToString() : "false",
+                    ["reduceOnly"] = model.ReduceOnly.HasValue ? model.ReduceOnly.Value.ToString() : null,
+                    ["closeOnTrigger"] = model.CloseOnTrigger.HasValue ? model.CloseOnTrigger.Value.ToString() : null,
                     ["mmp"] = string.IsNullOrEmpty(model.Mmp) ? "false" : model.Mmp.ToString(),
                 };
 

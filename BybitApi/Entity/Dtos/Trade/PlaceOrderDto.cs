@@ -118,12 +118,12 @@ namespace Bybit.Entity.Dtos.Trade
         /// <summary>
         /// What is a reduce-only order? true means your position can only reduce in size if this order is triggered. When reduce_only is true, take profit/stop loss cannot be set
         /// </summary>
-        public bool ReduceOnly { get; set; }
+        public bool? ReduceOnly { get; set; }
 
         /// <summary>
         /// What is a close on trigger order? For a closing order. It can only reduce your position, not increase it. If the account has insufficient available balance when the closing order is triggered, then other active orders of similar contracts will be cancelled or reduced. It can be used to ensure your stop loss reduces your position regardless of current available margin.
         /// </summary>
-        public bool CloseOnTrigger { get; set; }
+        public bool? CloseOnTrigger { get; set; }
 
         /// <summary>
         /// Market maker protection. option only. true means set the order as a market maker protection order. What is mmp?
