@@ -11,6 +11,9 @@ namespace Bybit.Models.Enums
         LINEARPERPETUAL,
 
         [Display(Name = "InverseFutures")]
-        INVERSEFUTURES
+        INVERSEFUTURES,
+
+        [Display(Name = "LinearFutures")]
+        LINEARFUTURES
     }
 }
