@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Mehmet Emin KARADAĞ</Authors>
     <Company>Mehmet Emin KARADAĞ</Company>
     <Description>Bybit borsasında, çeşitli kripto para çiftlerinde alım-satım yapmak için geliştirilen kullanımı kolay ve pratik bir .NET 7 - C# kütüphanesidir.</Description>
