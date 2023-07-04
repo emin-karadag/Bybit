@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Mehmet Emin KARADAĞ</Authors>
     <Company>Mehmet Emin KARADAĞ</Company>
     <Description>Bybit borsasında, çeşitli kripto para çiftlerinde alım-satım yapmak için geliştirilen kullanımı kolay ve pratik bir .NET 7 - C# kütüphanesidir.</Description>
@@ -13,7 +13,7 @@
     <PackageIcon>Bybit-Logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/emin-karadag/Bybit</RepositoryUrl>
     <PackageTags>bybit, bitcoin, kripto, kripto para, bybit c#, c# bybit, cryptocurrency</PackageTags>
-    <PackageReleaseNotes>Trade API -> Koşullu emirler için PlaceOrderAsync() metodunda iyileştirmeler yapıldı.</PackageReleaseNotes>
+    <PackageReleaseNotes>Position API -> Pozisyon bilgisi alınabilmesi sağlandı.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
